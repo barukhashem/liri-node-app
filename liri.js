@@ -40,36 +40,38 @@ function concert() {
     // Then run a request with axios to the bandsintown.com API with the artist specified:
     axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp").then(
         function (response) {
-            // If the axios was successful...
-            // Then log the body from the site:
-            console.log(response);
-            // console.log("Venue name: " + response.data.venue.name);
-            // console.log("Venue location: " + response.data.venue.city);
-            // console.log("Event date: " + response.data.datetime.MM/DD/YYYY);
-        },
-        function (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an object that comes back with details pertaining to the error that occurred.
-                console.log(error.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log("Error", error.message);
+            response.data.forEach(function (event) {
+                console.log(event.venue.name)
+                console.log(event.venue.city)
+                // console.log(event.venue.name) MM/DD/YYYY
             }
-            console.log(error.config);
+            )
         }
     )
 };
 
 // If the "spotify" function is called...
-// function spotify() {
-// }
+function spotify() {
+
+    // We will read the existing bank file
+    fs.readFile("keys.js", "utf8", function (err, data) {
+        if (err) {
+            return console.log(err);
+        }
+
+        spotify
+            .search({ type: 'track', query: 'All the Small Things' })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+    )
+};
+
+
 
 // If the "movie" function is called...
 function movie() {
