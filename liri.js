@@ -81,8 +81,7 @@ function spotifyThis(song) {
 
         spotify.search({ type: "track", query: song, limit: 1 })
             .then(function (response) {
-                // console.log(response);
-                // console.log(JSON.stringify(response, null, 2));
+
                 console.log("==========================================================================");
                 console.log("==========================================================================");
                 console.log("Artist: " + response.tracks.items[0].artists[0].name)
@@ -91,16 +90,6 @@ function spotifyThis(song) {
                 console.log("Album: " + response.tracks.items[0].album.name)
                 console.log("==========================================================================");
                 console.log("==========================================================================");
-
-
-                // fs.writeFile("spotify-data.json", JSON.stringify(response, null, 2), function (err) {
-
-                //     // console.log(err);
-                //     // console.log("===================================");
-                // })
-                // .catch(function (err) {
-                //     console.log(err);
-                // })
             })
     }
 };
@@ -108,33 +97,22 @@ function spotifyThis(song) {
 // If the "movie" function is called:
 function movie(movieName) {
 
-if (movieName.trim().length === 0) {
-    var queryURL = "http://www.omdbapi.com/?t=Mr.+Nobody&y=&plot=short&apikey=trilogy"
-    // .then(function (response) {
+    if (movieName.trim().length === 0) {
+        axios.get("http://www.omdbapi.com/?t=Mr.+Nobody&y=&plot=short&apikey=trilogy")
+            .then(function (response) {
 
-        // .then(function (queryURL) {
-
-            console.log("==========================================================================");
-            console.log("Title: " + response.data.Title);
-            console.log("Year: " + response.data.Year);
-            console.log("IMDB Rating: " + response.data.imdbRating);
-            console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-            console.log("Country: " + response.data.Country);
-            console.log("Language: " + response.data.Language);
-            console.log("Plot: " + response.data.Plot);
-            console.log("Actors: " + response.data.Actors);
-            console.log("==========================================================================");
-        // })
-        // .catch(function (err) {
-        //     console.error("Error occurred: " + err);
-        // });
-
-
-    // if (movieName === " ") {
-    //     queryURL = "http://www.omdbapi.com/?t=Mr.+Nobody&y=&plot=short&apikey=trilogy"
-    //     console.log(queryURL);
-    }
-    else {
+                console.log("==========================================================================");
+                console.log("Title: " + response.data.Title);
+                console.log("Year: " + response.data.Year);
+                console.log("IMDB Rating: " + response.data.imdbRating);
+                console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+                console.log("Country: " + response.data.Country);
+                console.log("Language: " + response.data.Language);
+                console.log("Plot: " + response.data.Plot);
+                console.log("Actors: " + response.data.Actors);
+                console.log("==========================================================================");
+            });
+    } else {
 
         axios.get("https://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy").then(
             function (response) {
