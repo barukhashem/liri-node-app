@@ -11,35 +11,49 @@ const Spotify = require('node-spotify-api');
 // You should then be able to access your keys information like so:
 const spotify = new Spotify(keys.spotify);
 
-const action = process.argv[2];
-const value = process.argv.slice(3).join(" ");
+var action = process.argv[2];
+var value = process.argv.slice(3).join(" ");
+
+var doItTracker = false;
 
 const axios = require("axios");
 
 const moment = require("moment");
 
-// The switch-case will direct which function gets run:
-switch (action) {
-    case "concert-this":
-        concert(value);
-        break;
+function actions() {
+    console.log(action);
+    console.log(value);
 
-    case "spotify-this-song":
-        spotifyThis(value);
-        break;
-    // default:
 
-    case "movie-this":
-        movie(value);
-        break;
-    // default:
+    // The switch-case will direct which function gets run:
+    switch (action) {
+        case "concert-this":
+            // if (!doItTracker) {
+            // }
+            concert(value);
+            break;
 
-    case "do-what-it-says":
-        command(value);
-        break;
+        case "spotify-this-song":
+            // if (!doItTracker) {
+            // }
+            spotifyThis(value);
+            break;
+
+        case "movie-this":
+            // if (!doItTracker) {
+            // }
+            movie(value);
+            break;
+
+        case "do-what-it-says":
+            if (!doItTracker)
+                doIt();
+            break;
+    }
 }
+actions();
 
-// If the "concert" function is called:
+// If the "concert-this" action is called:
 function concert(artist) {
 
     // Then run a request with axios to the bandsintown.com API with the artist specified:
@@ -50,14 +64,13 @@ function concert(artist) {
                 console.log("Venue: " + event.venue.name);
                 console.log("City: " + event.venue.city);
                 console.log("Date: " + moment(event.datetime).format("MM/DD/YYYY"));
-                console.log("==========================================================================");
             }
             )
         }
     )
 };
 
-// If the "spotify" function is called:
+// If the "spotify-this-song" action is called:
 function spotifyThis(song) {
 
     if (song.trim().length === 0) {
@@ -65,12 +78,10 @@ function spotifyThis(song) {
             .then(function (response) {
 
                 console.log("==========================================================================");
-                console.log("==========================================================================");
                 console.log("Artist: " + response.album.artists[0].name);
                 console.log("Song: " + "'" + response.name + "'");
                 console.log("Preview URL: " + response.preview_url);
                 console.log("Album: " + response.album.name);
-                console.log("==========================================================================");
                 console.log("==========================================================================");
             })
             .catch(function (err) {
@@ -83,18 +94,16 @@ function spotifyThis(song) {
             .then(function (response) {
 
                 console.log("==========================================================================");
-                console.log("==========================================================================");
                 console.log("Artist: " + response.tracks.items[0].artists[0].name)
                 console.log("Song: " + "'" + response.tracks.items[0].name + "'")
                 console.log("Preview URL: " + response.tracks.items[0].preview_url)
                 console.log("Album: " + response.tracks.items[0].album.name)
                 console.log("==========================================================================");
-                console.log("==========================================================================");
             })
     }
 };
 
-// If the "movie" function is called:
+// If the "movie-this" action is called:
 function movie(movieName) {
 
     if (movieName.trim().length === 0) {
@@ -130,3 +139,21 @@ function movie(movieName) {
         )
     }
 };
+
+// If the "do-what-it-says" action is called...
+function doIt() {
+    // We will read the existing random.txt file
+    fs.readFile("random.txt", "utf8", function (err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        var dataArr = data.split(", ");
+
+        action = dataArr[0];
+        value = dataArr[1];
+
+        doItTracker = true;
+        actions();
+
+    });
+}
