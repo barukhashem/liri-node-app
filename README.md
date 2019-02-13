@@ -28,6 +28,12 @@ For this assignment, I created a LIRI Bot. LIRI (Language Interpretation and Rec
 
      * Event date (in the format "MM/DD/YYYY")
 
+    `Example: node liri.js concert-this ZZ Top`
+
+    `Output:`  
+
+![Example: ZZ Top](screenshots/concert_this_zz_top.png)
+
 2. `node liri.js spotify-this-song '<song name>'`
 
    * Using this command, LIRI searches the Spotify API and displays the following song information in the terminal/bash window:
@@ -40,31 +46,77 @@ For this assignment, I created a LIRI Bot. LIRI (Language Interpretation and Rec
 
      * Album
 
+   `Example: node liri.js spotify-this-song Surrender`
+
+      `Output:`
+
+![Example: Surrender](screenshots/spotify_this_song_surrender.png)
+
    * If the user does not input a song, by default the program displays data for the song "The Sign" by Ace of Base.
+
+      `Output:`
+
+![default](screenshots/spotify_this_song_default.png)
 
 3. `node liri.js movie-this '<movie name>'`
 
    * Using this command, LIRI searches the OMDB API and displays the following movie information in the terminal/bash window:
 
-     ```
-       * Movie title
-       * Release year
-       * IMDB movie rating
-       * Rotten Tomatoes movie rating
-       * Country of origin
-       * Language
-       * Plot
-       * Actors
-     ```
+     
+      * Movie title
+      * Release year
+      * IMDB movie rating
+      * Rotten Tomatoes movie rating
+      * Country of origin
+      * Language
+      * Plot
+      * Actors
+  
+    `Example: node liri.js movie-this Aquaman`
+
+    `Output:`  
+
+![Example: Aquaman](screenshots/movie_this_aquaman.png)
 
    * If the user does not input a movie, by default the program displays data for the movie Mr. Nobody.
 
+      `Example: node liri.js movie-this`
+
+      `Output:`
+
+![default](screenshots/movie_this_default.png)
+
 4. `node liri.js do-what-it-says`
 
-   * Using the `fs` Node package, LIRI reads the text in random.txt and runs the specified command and input:
+   * Using this command and the `fs` Node package, LIRI reads the text in random.txt and runs the specified command and text:
 
-     * It runs `spotify-this-song` for the specified song in random.txt. (Example: spotify-this-song, I Want it That Way)
+     * It runs `spotify-this-song` for the specified song in random.txt.
 
-     * It runs `concert-this` for the specified artist/band in random.txt. (Example: concert-this, Metallica)
+      `Example: node liri.js do-what-it-says`
 
-     * It runs `movie-this` for the specified movie in random.txt. (Example: movie-this, Star Wars)
+      `spotify-this-song, I Want It That Way`
+
+      `Output:`
+
+![Example: I Want It That Way](screenshots/do_what_it_says_spotify_this_song.png)
+
+
+   * It runs `concert-this` for the specified artist/band in random.txt.
+
+      `Example: node liri.js do-what-it-says`
+
+      `concert-this, Metallica`
+
+      `Output:`
+
+![Example: Metallica](screenshots/do_what_it_says_concert_this.png)
+
+   * It runs `movie-this` for the specified movie in random.txt.
+
+      `Example: node liri.js do-what-it-says`
+
+      `movie-this, Star Wars`
+
+      `Output:`
+
+![Example: Star Wars](screenshots/do_what_it_says_movie_this.png)

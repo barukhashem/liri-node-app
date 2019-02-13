@@ -1,47 +1,45 @@
-// At the top of the liri.js file, add code to read and set any environment variables with the dotenv package:
+// At the top of the liri.js file, this adds code to read and sets any environment variables with the dotenv package:
 require("dotenv").config();
 
-// As always, we grab the fs package to handle read/write.
+// This grabs the fs package to handle read/write:
 const fs = require("fs");
 
-// Add the code required to import the keys.js file and store it in a variable:
+// This adds the code required to import the keys.js file and stores it in a variable:
 const keys = require("./keys.js");
 
 const Spotify = require('node-spotify-api');
-// You should then be able to access your keys information like so:
+
+// This enables access to the keys information:
 const spotify = new Spotify(keys.spotify);
 
+// This 
 var action = process.argv[2];
 var value = process.argv.slice(3).join(" ");
 
 var doItTracker = false;
 
+// This grabs the axios package:
 const axios = require("axios");
 
+// This grabs the moment package:
 const moment = require("moment");
 
+// This function emcompasses all four actions:
 function actions() {
     console.log(action);
     console.log(value);
 
-
     // The switch-case will direct which function gets run:
     switch (action) {
         case "concert-this":
-            // if (!doItTracker) {
-            // }
             concert(value);
             break;
 
         case "spotify-this-song":
-            // if (!doItTracker) {
-            // }
             spotifyThis(value);
             break;
 
         case "movie-this":
-            // if (!doItTracker) {
-            // }
             movie(value);
             break;
 
@@ -56,7 +54,7 @@ actions();
 // If the "concert-this" action is called:
 function concert(artist) {
 
-    // Then run a request with axios to the bandsintown.com API with the artist specified:
+    // This runs a request with axios to the bandsintown.com API with the artist specified:
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(
         function (response) {
             response.data.forEach(function (event) {
@@ -140,9 +138,9 @@ function movie(movieName) {
     }
 };
 
-// If the "do-what-it-says" action is called...
+// If the "do-what-it-says" action is called:
 function doIt() {
-    // We will read the existing random.txt file
+    // It will read the existing random.txt file:
     fs.readFile("random.txt", "utf8", function (err, data) {
         if (err) {
             return console.log(err);
